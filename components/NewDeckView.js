@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import { View } from "react-native";
+import { connect } from "react-redux";
 import { Text } from "react-native-elements";
 import { Button, FormLabel, FormInput } from "react-native-elements";
+import { saveDeckTitle } from "../actions";
 
 class NewDeckView extends Component {
   state = {
     title: ""
   };
+
+  addNewDeck = newTitle => {
+    const { saveDeckTitle } = this.props;
+    saveDeckTitle(newTitle);
+    this.props.navigation.goBack();
+  };
+
   render() {
     const { decks } = this.props;
     return (
@@ -16,10 +25,13 @@ class NewDeckView extends Component {
         <FormInput
           onChangeText={newValue => this.setState({ title: newValue })}
         />
-        <Button title="Submit" onPress={() => console.log(this.state.title)} />
+        <Button
+          title="Submit"
+          onPress={() => this.addNewDeck(this.state.title)}
+        />
       </View>
     );
   }
 }
 
-export default NewDeckView;
+export default connect(null, { saveDeckTitle })(NewDeckView);

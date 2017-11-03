@@ -4,6 +4,7 @@ import {
   GET_DECKS,
   SAVE_DECK_TITLE
 } from "../actions";
+import { putDeck } from "../storage/api";
 
 function decks(state = dummyData, action) {
   switch (action.type) {
@@ -14,6 +15,10 @@ function decks(state = dummyData, action) {
     case GET_DECKS:
       return state;
     case SAVE_DECK_TITLE:
+      const { newDeck } = action;
+      console.log("state old:", state);
+      state[newDeck.title] = newDeck;
+      console.log("state new:", state);
       return state;
     default:
       return state;
@@ -22,8 +27,8 @@ function decks(state = dummyData, action) {
 
 export default decks;
 
-const dummyData = [
-  {
+const dummyData = {
+  React: {
     title: "React",
     questions: [
       {
@@ -36,7 +41,7 @@ const dummyData = [
       }
     ]
   },
-  {
+  JavaScript: {
     title: "JavaScript",
     questions: [
       {
@@ -46,4 +51,4 @@ const dummyData = [
       }
     ]
   }
-];
+};

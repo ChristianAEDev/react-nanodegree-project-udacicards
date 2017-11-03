@@ -1,19 +1,26 @@
 import React, { Component } from "react";
+import { Text, View } from "react-native";
 import { connect } from "react-redux";
+import _ from "lodash";
 import { List, ListItem } from "react-native-elements";
 
 class DeckListView extends Component {
   render() {
     const { decks } = this.props;
+    let keys = _.keys(decks);
+    console.log("keys:", keys);
+
     return (
       <List>
-        {decks.map(deck => (
-          <ListItem
-            key={deck.title}
-            title={deck.title}
-            subtitle={`${deck.questions.length} cards`}
-          />
-        ))}
+        {keys.map(key => {
+          return (
+            <ListItem
+              key={key}
+              title={decks[key].title}
+              subtitle={`PLACEHOLDER! cards`}
+            />
+          );
+        })}
       </List>
     );
   }
