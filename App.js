@@ -2,9 +2,11 @@ import React from "react";
 import { StyleSheet, Text, StatusBar, View } from "react-native";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import { TabNavigator } from "react-navigation";
 import { Constants } from "expo";
 import reducer from "./reducers";
 import DeckListView from "./components/DeckListView";
+import NewDeckView from "./components/NewDeckView";
 
 export default class App extends React.Component {
   render() {
@@ -14,7 +16,7 @@ export default class App extends React.Component {
           <View style={{ height: Constants.statusBarHeight }}>
             <StatusBar tanslucent />
           </View>
-          <DeckListView />
+          <TabNavigation />
         </View>
       </Provider>
     );
@@ -24,5 +26,20 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  }
+});
+
+const TabNavigation = TabNavigator({
+  DeckListView: {
+    screen: DeckListView,
+    navigationOptions: {
+      tabBarLabel: "Decks"
+    }
+  },
+  NewDeckView: {
+    screen: NewDeckView,
+    navigationOptions: {
+      tabBarLabel: "New Deck"
+    }
   }
 });
