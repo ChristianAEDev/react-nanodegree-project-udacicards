@@ -22,8 +22,8 @@ function decks(state = dummyData, action) {
 
 export default decks;
 
-const dummyData = {
-  React: {
+const dummyData = [
+  {
     title: "React",
     questions: [
       {
@@ -36,7 +36,7 @@ const dummyData = {
       }
     ]
   },
-  JavaScript: {
+  {
     title: "JavaScript",
     questions: [
       {
@@ -46,4 +46,4 @@ const dummyData = {
       }
     ]
   }
-};
+];
