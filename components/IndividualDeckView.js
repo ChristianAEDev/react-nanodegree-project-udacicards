@@ -10,7 +10,13 @@ class IndividualDeckView extends Component {
       <View>
         <Text h1>{deck.title}</Text>
         <Text h4>{deck.questions.length} card(s)</Text>
-        <Button title="Add Card" onPress={() => console.log("addCard")} />
+        <Button
+          title="Add Card"
+          onPress={() =>
+            this.props.navigation.navigate("NewQuestionView", {
+              deckKey: deck.title
+            })}
+        />
         <Button title="Start Quiz" onPress={() => console.log("startQuiz")} />
       </View>
     );
@@ -20,7 +26,6 @@ class IndividualDeckView extends Component {
 function mapStateToProps(state, { navigation }) {
   const { title } = navigation.state.params;
   return {
-    title,
     deck: state[title]
   };
 }

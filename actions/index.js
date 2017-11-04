@@ -28,6 +28,6 @@ export function saveDeckTitle(title) {
 export function addCardToDeck(title, card) {
   return {
     type: ADD_CARD_TO_DECK,
-    payload: { title, card }
+    payload: { key: title, card }
   };
 }

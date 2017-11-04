@@ -9,7 +9,11 @@ import { putDeck } from "../storage/api";
 function decks(state = dummyData, action) {
   switch (action.type) {
     case ADD_CARD_TO_DECK:
-      return state;
+      const { key, card } = action.payload;
+      return {
+        ...state,
+        [key]: { ...state[key], questions: [...state[key].questions, card] }
+      };
     case GET_DECK:
       return state;
     case GET_DECKS:

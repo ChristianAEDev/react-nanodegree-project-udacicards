@@ -8,6 +8,7 @@ import reducer from "./reducers";
 import DeckListView from "./components/DeckListView";
 import IndividualDeckView from "./components/IndividualDeckView";
 import NewDeckView from "./components/NewDeckView";
+import NewQuestionView from "./components/NewQuestionView";
 
 export default class App extends React.Component {
   render() {
@@ -58,5 +59,8 @@ const StackNavigation = StackNavigator({
   },
   IndividualDeckView: {
     screen: IndividualDeckView
+  },
+  NewQuestionView: {
+    screen: NewQuestionView
   }
 });

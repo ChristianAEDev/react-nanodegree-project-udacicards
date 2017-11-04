@@ -11,17 +11,20 @@ class DeckListView extends Component {
   }
   render() {
     const { decks } = this.props;
+
     let keys = _.keys(decks);
-    console.log("keys:", keys);
 
     return (
       <List>
         {keys.map(key => {
+          const deck = decks[key];
           return (
             <ListItem
               key={key}
-              title={decks[key].title}
-              subtitle={`PLACEHOLDER! cards`}
+              title={deck.title}
+              subtitle={`${typeof deck.questions === "undefined"
+                ? 0
+                : deck.questions.length} cards`}
               onPress={() =>
                 this.props.navigation.navigate("IndividualDeckView", {
                   title: key
