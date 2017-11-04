@@ -1,9 +1,4 @@
-import {
-  ADD_CARD_TO_DECK,
-  GET_DECK,
-  GET_DECKS,
-  SAVE_DECK_TITLE
-} from "../actions";
+import { ADD_CARD_TO_DECK, GET_DECKS, SAVE_DECK_TITLE } from "../actions";
 import { putDeck } from "../storage/api";
 
 function decks(state = dummyData, action) {
@@ -14,8 +9,6 @@ function decks(state = dummyData, action) {
         ...state,
         [key]: { ...state[key], questions: [...state[key].questions, card] }
       };
-    case GET_DECK:
-      return state;
     case GET_DECKS:
       return state;
     case SAVE_DECK_TITLE:
