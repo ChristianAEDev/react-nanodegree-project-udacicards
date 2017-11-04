@@ -17,7 +17,13 @@ class IndividualDeckView extends Component {
               deckKey: deck.title
             })}
         />
-        <Button title="Start Quiz" onPress={() => console.log("startQuiz")} />
+        <Button
+          title="Start Quiz"
+          onPress={() =>
+            this.props.navigation.navigate("QuizView", {
+              deckKey: deck.title
+            })}
+        />
       </View>
     );
   }

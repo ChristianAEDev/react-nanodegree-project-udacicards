@@ -1,0 +1,117 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { Button, Text } from "react-native-elements";
+
+const MODE_QUESTION = "MODE_QUESTION";
+const MODE_ANSWER = "MODE_ANSWER";
+const MODE_RESULT = "MODE_RESULT";
+
+class QuizView extends Component {
+  state = {
+    numberOfQuestions: 0,
+    // currentQuestion is representing the INDEX of the array of questions.
+    currentQuestion: 0,
+    mode: MODE_QUESTION,
+    result: true
+  };
+
+  componentDidMount() {
+    const { questions } = this.props;
+    this.setState({ numberOfQuestions: questions.length });
+  }
+
+  showAnswer = () => {
+    this.setState({ mode: MODE_ANSWER });
+  };
+
+  showQuestion = () => {
+    this.setState({ mode: MODE_QUESTION });
+  };
+
+  answerQuestion = answer => {
+    this.setState({ result: answer });
+    this.setState({ mode: MODE_RESULT });
+  };
+
+  nextQuestion = () => {
+    const { currentQuestion, numberOfQuestions } = this.state;
+
+    if (currentQuestion + 1 >= numberOfQuestions) {
+      this.props.navigation.navigate("IndividualDeckView", {
+        title: this.props.deckKey
+      });
+    } else {
+      this.setState({ mode: MODE_QUESTION });
+      this.setState({ currentQuestion: currentQuestion + 1 });
+    }
+  };
+
+  render() {
+    const { questions } = this.props;
+    const { mode, currentQuestion, result, numberOfQuestions } = this.state;
+    const question = questions[currentQuestion].question;
+    const answer = questions[currentQuestion].answer;
+    return (
+      <View>
+        <Text h4>
+          {currentQuestion + 1}/{numberOfQuestions}
+        </Text>
+        {mode === MODE_QUESTION && (
+          <View>
+            <Text h1>{question}</Text>
+            <TouchableOpacity onPress={this.showAnswer}>
+              <Text style={styles.text}>Answer</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {mode === MODE_ANSWER && (
+          <View>
+            <Text h1>{answer}</Text>
+            <TouchableOpacity onPress={this.showQuestion}>
+              <Text style={styles.text}>Question</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {mode === MODE_RESULT && (
+          <View>
+            <Text h1>{result ? "Yes!" : "No!"}</Text>
+            <TouchableOpacity onPress={this.nextQuestion}>
+              <Text style={styles.text}>Next Question</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        <Button
+          title="Correct"
+          backgroundColor="green"
+          color="white"
+          onPress={() => this.answerQuestion(true)}
+        />
+        <Button
+          title="Incorrect"
+          backgroundColor="red"
+          color="white"
+          onPress={() => this.answerQuestion(false)}
+        />
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  text: {
+    textAlign: "center",
+    fontSize: 25
+  }
+});
+
+function mapStateToProps(state, { navigation }) {
+  const { deckKey } = navigation.state.params;
+  return {
+    deckKey,
+    questions: state[deckKey].questions
+  };
+}
+
+export default connect(mapStateToProps)(QuizView);

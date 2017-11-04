@@ -9,6 +9,7 @@ import DeckListView from "./components/DeckListView";
 import IndividualDeckView from "./components/IndividualDeckView";
 import NewDeckView from "./components/NewDeckView";
 import NewQuestionView from "./components/NewQuestionView";
+import QuizView from "./components/QuizView";
 
 export default class App extends React.Component {
   render() {
@@ -62,5 +63,8 @@ const StackNavigation = StackNavigator({
   },
   NewQuestionView: {
     screen: NewQuestionView
+  },
+  QuizView: {
+    screen: QuizView
   }
 });
