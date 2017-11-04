@@ -30,9 +30,9 @@ class IndividualDeckView extends Component {
 }
 
 function mapStateToProps(state, { navigation }) {
-  const { title } = navigation.state.params;
+  const { title, result } = navigation.state.params;
   return {
-    deck: state[title]
+    deck: state[title],
   };
 }
 

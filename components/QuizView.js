@@ -6,6 +6,7 @@ import { Button, Text } from "react-native-elements";
 const MODE_QUESTION = "MODE_QUESTION";
 const MODE_ANSWER = "MODE_ANSWER";
 const MODE_RESULT = "MODE_RESULT";
+const MODE_FINISHED = "MODE_FINISHED";
 
 class QuizView extends Component {
   state = {
@@ -13,7 +14,8 @@ class QuizView extends Component {
     // currentQuestion is representing the INDEX of the array of questions.
     currentQuestion: 0,
     mode: MODE_QUESTION,
-    result: true
+    result: true,
+    correctAnswers: 0
   };
 
   componentDidMount() {
@@ -35,12 +37,20 @@ class QuizView extends Component {
   };
 
   nextQuestion = () => {
-    const { currentQuestion, numberOfQuestions } = this.state;
+    const {
+      currentQuestion,
+      numberOfQuestions,
+      result,
+      correctAnswers
+    } = this.state;
 
+    if (result) {
+      this.setState({ correctAnswers: correctAnswers + 1 });
+    }
+
+    // Still have more questions?
     if (currentQuestion + 1 >= numberOfQuestions) {
-      this.props.navigation.navigate("IndividualDeckView", {
-        title: this.props.deckKey
-      });
+      this.setState({ mode: MODE_FINISHED });
     } else {
       this.setState({ mode: MODE_QUESTION });
       this.setState({ currentQuestion: currentQuestion + 1 });
@@ -49,7 +59,13 @@ class QuizView extends Component {
 
   render() {
     const { questions } = this.props;
-    const { mode, currentQuestion, result, numberOfQuestions } = this.state;
+    const {
+      mode,
+      currentQuestion,
+      result,
+      numberOfQuestions,
+      correctAnswers
+    } = this.state;
     const question = questions[currentQuestion].question;
     const answer = questions[currentQuestion].answer;
     return (
@@ -79,6 +95,11 @@ class QuizView extends Component {
             <TouchableOpacity onPress={this.nextQuestion}>
               <Text style={styles.text}>Next Question</Text>
             </TouchableOpacity>
+          </View>
+        )}
+        {mode === MODE_FINISHED && (
+          <View>
+            <Text h3>{100 / numberOfQuestions * correctAnswers}% correct</Text>
           </View>
         )}
 
