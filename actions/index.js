@@ -1,3 +1,5 @@
+import { putDeck } from "../storage/api";
+
 export const GET_DECKS = "GET_DECKS";
 export const SAVE_DECK_TITLE = "SAVE_DECK_TITLE";
 export const ADD_CARD_TO_DECK = "ADD_CARD_TO_DECK";
@@ -10,7 +12,7 @@ export function getDecks() {
 }
 
 export function saveDeckTitle(title) {
-  let deck = { [title]: { title, questions: [] } };
+  const deck = putDeck(title);
   return {
     type: SAVE_DECK_TITLE,
     deck: deck
