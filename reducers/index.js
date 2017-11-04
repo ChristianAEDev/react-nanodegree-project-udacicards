@@ -15,11 +15,10 @@ function decks(state = dummyData, action) {
     case GET_DECKS:
       return state;
     case SAVE_DECK_TITLE:
-      const { newDeck } = action;
-      console.log("state old:", state);
-      state[newDeck.title] = newDeck;
-      console.log("state new:", state);
-      return state;
+      return {
+        ...state,
+        ...action.deck
+      };
     default:
       return state;
   }

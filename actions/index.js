@@ -18,10 +18,10 @@ export function getDeck(id) {
 }
 
 export function saveDeckTitle(title) {
-  let newDeck = { title: title, questions: [] };
+  let deck = { [title]: { title, questions: [] } };
   return {
     type: SAVE_DECK_TITLE,
-    newDeck: newDeck
+    deck: deck
   };
 }
 
