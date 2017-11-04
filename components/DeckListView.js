@@ -22,6 +22,10 @@ class DeckListView extends Component {
               key={key}
               title={decks[key].title}
               subtitle={`PLACEHOLDER! cards`}
+              onPress={() =>
+                this.props.navigation.navigate("IndividualDeckView", {
+                  title: key
+                })}
             />
           );
         })}
