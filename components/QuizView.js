@@ -46,6 +46,7 @@ class QuizView extends Component {
     } = this.state;
 
     if (result) {
+      console.log("correct");
       this.setState({ correctAnswers: correctAnswers + 1 });
     }
 
@@ -61,7 +62,7 @@ class QuizView extends Component {
   };
 
   render() {
-    const { questions } = this.props;
+    const { questions, deckKey } = this.props;
     const {
       mode,
       currentQuestion,
@@ -90,6 +91,18 @@ class QuizView extends Component {
             <TouchableOpacity onPress={this.showQuestion}>
               <Text style={styles.text}>Question</Text>
             </TouchableOpacity>
+            <Button
+              title="Correct"
+              backgroundColor="green"
+              color="white"
+              onPress={() => this.answerQuestion(true)}
+            />
+            <Button
+              title="Incorrect"
+              backgroundColor="red"
+              color="white"
+              onPress={() => this.answerQuestion(false)}
+            />
           </View>
         )}
         {mode === MODE_RESULT && (
@@ -102,22 +115,22 @@ class QuizView extends Component {
         )}
         {mode === MODE_FINISHED && (
           <View>
-            <Text h3>{100 / numberOfQuestions * correctAnswers}% correct</Text>
+            <Text h3>Correct answers: {correctAnswers}</Text>
+            <Button
+              title="Start"
+              color="white"
+              onPress={() =>
+                this.props.navigation.navigate("IndividualDeckView", {
+                  title: deckKey
+                })}
+            />
+            <Button
+              title="Home"
+              color="white"
+              onPress={() => this.props.navigation.navigate("DeckListView")}
+            />
           </View>
         )}
-
-        <Button
-          title="Correct"
-          backgroundColor="green"
-          color="white"
-          onPress={() => this.answerQuestion(true)}
-        />
-        <Button
-          title="Incorrect"
-          backgroundColor="red"
-          color="white"
-          onPress={() => this.answerQuestion(false)}
-        />
       </View>
     );
   }
