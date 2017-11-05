@@ -34,7 +34,11 @@ class DeckListView extends Component {
             <ListItem
               key={key}
               title={deck.title}
-              subtitle={`${numberOfCards} card`}
+              subtitle={
+                numberOfCards > 1
+                  ? `${numberOfCards} cards`
+                  : `${numberOfCards} card`
+              }
               onPress={() =>
                 this.props.navigation.navigate("IndividualDeckView", {
                   title: key
