@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, StatusBar, View } from "react-native";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import promise from 'redux-promise';
+import promise from "redux-promise";
 import { StackNavigator, TabNavigator } from "react-navigation";
 import { Constants } from "expo";
 import reducer from "./reducers";
@@ -11,10 +11,14 @@ import IndividualDeckView from "./components/IndividualDeckView";
 import NewDeckView from "./components/NewDeckView";
 import NewQuestionView from "./components/NewQuestionView";
 import QuizView from "./components/QuizView";
+import { setLocalNotification } from "./storage/api";
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
   render() {
     return (
       <Provider store={createStoreWithMiddleware(reducer)}>

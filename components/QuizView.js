@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-elements";
+import { clearLocalNotification, setLocalNotification } from "../storage/api";
 
 const MODE_QUESTION = "MODE_QUESTION";
 const MODE_ANSWER = "MODE_ANSWER";
@@ -51,6 +52,8 @@ class QuizView extends Component {
     // Still have more questions?
     if (currentQuestion + 1 >= numberOfQuestions) {
       this.setState({ mode: MODE_FINISHED });
+      // If a quiz has been performed we remove the notification for that day
+      clearLocalNotification().then(setLocalNotification());
     } else {
       this.setState({ mode: MODE_QUESTION });
       this.setState({ currentQuestion: currentQuestion + 1 });
