@@ -22,7 +22,7 @@ export function saveDeckTitle(title) {
 
 export function addCardToDeck(title, card) {
   console.log("card", card);
-  const value = putCardToDeck(title, card);
+  putCardToDeck(title, card);
 
   return {
     type: ADD_CARD_TO_DECK,

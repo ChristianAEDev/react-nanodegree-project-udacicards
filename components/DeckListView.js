@@ -12,6 +12,8 @@ class DeckListView extends Component {
   render() {
     const { decks } = this.props;
 
+    console.log("decks:", decks);
+
     if (_.isEmpty(decks)) {
       return (
         <Text h3>
@@ -24,13 +26,15 @@ class DeckListView extends Component {
       <List>
         {keys.map(key => {
           const deck = decks[key];
+          let numberOfCards = 0;
+          if (typeof deck.questions !== "undefined") {
+            numberOfCards = deck.questions.length;
+          }
           return (
             <ListItem
               key={key}
               title={deck.title}
-              subtitle={`${typeof deck.questions === "undefined"
-                ? 0
-                : deck.questions.length} cards`}
+              subtitle={`${numberOfCards} card`}
               onPress={() =>
                 this.props.navigation.navigate("IndividualDeckView", {
                   title: key

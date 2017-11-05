@@ -15,13 +15,15 @@ export function putDeck(title) {
 }
 
 export function putCardToDeck(key, card) {
-  console.log("putCardToDeck:", key, card);
-  return AsyncStorage.mergeItem(
-    STORAGE_KEY_DECK,
-    JSON.stringify({
-      [key]: { questions: card }
-    })
-  );
+  AsyncStorage.getItem(STORAGE_KEY_DECK).then(value => {
+    const decks = JSON.parse(value);
+    AsyncStorage.mergeItem(
+      STORAGE_KEY_DECK,
+      JSON.stringify({
+        [key]: { questions: [...decks[key].questions, card] }
+      })
+    );
+  });
 }
 
 function createNotification() {
