@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { connect } from "react-redux";
 import _ from "lodash";
 import { getDecks } from "../actions";
-import { List, ListItem } from "react-native-elements";
+import { Text, List, ListItem } from "react-native-elements";
 
 class DeckListView extends Component {
   componentDidMount() {
@@ -11,13 +11,15 @@ class DeckListView extends Component {
   }
   render() {
     const { decks } = this.props;
+
     if (_.isEmpty(decks)) {
-      return <Text>Loading</Text>;
+      return (
+        <Text h3>
+          No decks created yet. Swipe to the left to create your first deck.
+        </Text>
+      );
     }
-
     let keys = _.keys(decks);
-    console.log("keys:", keys);
-
     return (
       <List>
         {keys.map(key => {

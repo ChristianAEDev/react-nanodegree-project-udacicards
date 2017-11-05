@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, StatusBar, View } from "react-native";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import promise from 'redux-promise';
 import { StackNavigator, TabNavigator } from "react-navigation";
 import { Constants } from "expo";
 import reducer from "./reducers";
@@ -11,10 +12,12 @@ import NewDeckView from "./components/NewDeckView";
 import NewQuestionView from "./components/NewQuestionView";
 import QuizView from "./components/QuizView";
 
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={createStoreWithMiddleware(reducer)}>
         <View style={styles.container}>
           <View style={{ height: Constants.statusBarHeight }}>
             <StatusBar tanslucent />
