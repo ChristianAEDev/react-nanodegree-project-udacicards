@@ -11,8 +11,12 @@ class DeckListView extends Component {
   }
   render() {
     const { decks } = this.props;
+    if (_.isEmpty(decks)) {
+      return <Text>Loading</Text>;
+    }
 
     let keys = _.keys(decks);
+    console.log("keys:", keys);
 
     return (
       <List>

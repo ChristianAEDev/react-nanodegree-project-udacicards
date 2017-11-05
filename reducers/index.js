@@ -10,7 +10,8 @@ function decks(state = {}, action) {
         [key]: { ...state[key], questions: [...state[key].questions, card] }
       };
     case GET_DECKS:
-      return state;
+      console.log("GET_DECKS:", action.payload);
+      return action.payload;
     case SAVE_DECK_TITLE:
       const newState = {
         ...state,
@@ -18,6 +19,7 @@ function decks(state = {}, action) {
       };
       return newState;
     default:
+      console.log("default:", state);
       return state;
   }
 }
