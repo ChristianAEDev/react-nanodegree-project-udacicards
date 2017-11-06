@@ -13,7 +13,9 @@ class NewDeckView extends Component {
   addNewDeck = newTitle => {
     const { saveDeckTitle } = this.props;
     saveDeckTitle(newTitle);
-    this.props.navigation.goBack();
+    this.props.navigation.navigate("IndividualDeckView", {
+      title: newTitle
+    });
   };
 
   render() {
