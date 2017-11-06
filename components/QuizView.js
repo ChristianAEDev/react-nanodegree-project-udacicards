@@ -117,17 +117,20 @@ class QuizView extends Component {
           <View>
             <Text h3>Correct answers: {correctAnswers}</Text>
             <Button
-              title="Start"
+              title="Restart Quiz"
+              color="white"
+              onPress={() =>
+                this.props.navigation.navigate("QuizView", {
+                  deckKey: deckKey
+                })}
+            />
+            <Button
+              title="Back to Deck"
               color="white"
               onPress={() =>
                 this.props.navigation.navigate("IndividualDeckView", {
                   title: deckKey
                 })}
-            />
-            <Button
-              title="Home"
-              color="white"
-              onPress={() => this.props.navigation.navigate("DeckListView")}
             />
           </View>
         )}
